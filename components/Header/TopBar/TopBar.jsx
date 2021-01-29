@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Image } from "semantic-ui-react";
+import { Container, Grid, Image, Input } from "semantic-ui-react";
 import Link from 'next/link';
 
 export default function TopBar() {
@@ -11,7 +11,7 @@ export default function TopBar() {
             <Logo/>
           </Grid.Column>
           <Grid.Column width={8} className="top-bar__right">
-            <h2>Buscador</h2>
+            <Search/>
           </Grid.Column>
         </Grid>
       </Container>
@@ -25,5 +25,14 @@ function Logo(){
     <Link href='/'>
       <Image src='/logo.png' alt='Gaming' />
     </Link>
+  )
+}
+
+function Search(){
+  return(
+    <Input
+      id='search-game'
+      icon={{name: "search"}}
+    />
   )
 }
