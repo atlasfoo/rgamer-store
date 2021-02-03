@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
 
-export default function RegisterForm() {
+export default function RegisterForm({showLoginForm}) {
   return (
-    <h3>Formulario de registro</h3>
+    <div>
+      <h3>Formulario de registro</h3>
+      <button onClick={showLoginForm}>Ir al Login</button>
+    </div>
   )
 }

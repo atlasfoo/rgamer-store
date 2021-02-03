@@ -6,6 +6,7 @@ import BasicModal from "../../Modal/BasicModal";
 
 export default function NavMenu() {
   const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("Iniciar sesión");
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
@@ -25,10 +26,10 @@ export default function NavMenu() {
       <BasicModal
         show={showModal}
         setShow={setShowModal}
-        title="Inicia Sesi&oacute;n"
+        title={titleModal}
         size="small"
       >
-        <Auth onCloseModal={onCloseModal}/>
+        <Auth onCloseModal={onCloseModal} setTitleModal={setTitleModal} />
       </BasicModal>
     </nav>
   );
