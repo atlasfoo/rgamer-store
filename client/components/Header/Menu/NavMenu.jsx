@@ -1,12 +1,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Container, Grid, Icon, Menu } from "semantic-ui-react";
+import Auth from "../../Auth";
 import BasicModal from "../../Modal/BasicModal";
 
 export default function NavMenu() {
   const [showModal, setShowModal] = useState(false);
 
   const onShowModal = () => setShowModal(true);
+  const onCloseModal = () => setShowModal(false);
 
   return (
     <nav className="menu">
@@ -26,7 +28,7 @@ export default function NavMenu() {
         title="Inicia Sesi&oacute;n"
         size="small"
       >
-        <h2>Modal</h2>
+        <Auth onCloseModal={onCloseModal}/>
       </BasicModal>
     </nav>
   );
