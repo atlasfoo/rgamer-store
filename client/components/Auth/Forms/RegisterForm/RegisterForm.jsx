@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
 
+import * as UserApi from '../../../../api/user';
+
 import RegisterValidationSchema from "./RegisterValidationSchema";
 
 const initialValues = {
@@ -14,7 +16,7 @@ const initialValues = {
 
 export default function RegisterForm({ showLoginForm }) {
   const onSubmit = (data) => {
-    console.log(data);
+    UserApi.create(data);
   };
 
   // Formik Hooks
