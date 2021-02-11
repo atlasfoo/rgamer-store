@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React, {useState} from "react";
+import { toast } from "react-toastify";
 import { Button, Form } from "semantic-ui-react";
 
 import * as UserApi from '../../../../api/user';
@@ -21,6 +22,12 @@ export default function RegisterForm({ showLoginForm }) {
     const response = await UserApi.create(data);
     
     console.log(response);
+
+    if(response?.jwt){
+      showLoginForm();
+    }else{
+      toast.error("Error al registrar el usuario");
+    }
 
     setLoading(false);
   };
