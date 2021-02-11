@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, {useState} from "react";
 import { Button, Form } from "semantic-ui-react";
 
 import * as UserApi from '../../../../api/user';
@@ -15,8 +15,14 @@ const initialValues = {
 };
 
 export default function RegisterForm({ showLoginForm }) {
-  const onSubmit = (data) => {
-    UserApi.create(data);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const response = await UserApi.create(data);
+    
+    console.log(response);
+
+    setLoading(false);
   };
 
   // Formik Hooks
@@ -25,6 +31,8 @@ export default function RegisterForm({ showLoginForm }) {
     validationSchema: RegisterValidationSchema,
     onSubmit: onSubmit,
   });
+
+  const [loading, setLoading] = useState(false)
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -62,17 +70,17 @@ export default function RegisterForm({ showLoginForm }) {
 
       <Form.Input
         name="password"
-        type="text"
+        type="password"
         placeholder="Contraseña"
         onChange={handleChange}
         error={errors.password}
       />
 
       <div className="actions">
-        <Button type="button" basic>
+        <Button type="button" basic onClick={showLoginForm}>
           Iniciar sesi&oacute;n
         </Button>
-        <Button type="submit" className="submit">
+        <Button type="submit" className="submit" loading={loading}>
           Registrar
         </Button>
       </div>

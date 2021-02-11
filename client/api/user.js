@@ -1,4 +1,29 @@
-const create = user => console.log(user)
+import { BASE_PATH } from "../config/consts";
 
+const create = async (user) => {
+  try {
+    const url = `${BASE_PATH}/auth/local/register`;
+    
+    console.log(BASE_PATH);
+    
+    console.log(user);
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    };
 
-export { create }
+    const response = await fetch(url, params);
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export { create };
