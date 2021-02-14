@@ -22,7 +22,7 @@ export default function TopBar() {
 
 function Logo(){
   return (
-    <Image src='/logo.png' alt='Gaming'  href='/' />
+    <Image src='/logo.png' alt='Gaming' as='a' href='/' />
   )
 }
 
