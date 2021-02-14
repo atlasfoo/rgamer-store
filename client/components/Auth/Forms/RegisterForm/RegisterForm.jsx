@@ -4,16 +4,8 @@ import { toast } from "react-toastify";
 import { Button, Form } from "semantic-ui-react";
 
 import * as UserApi from '../../../../api/user';
+import { initialValues, validationSchema } from "./RegisterFormValues";
 
-import RegisterValidationSchema from "./RegisterValidationSchema";
-
-const initialValues = {
-  name: "",
-  lastname: "",
-  username: "",
-  email: "",
-  password: "",
-};
 
 export default function RegisterForm({ showLoginForm }) {
 
@@ -34,8 +26,8 @@ export default function RegisterForm({ showLoginForm }) {
 
   // Formik Hooks
   const { handleSubmit, handleChange, errors } = useFormik({
-    initialValues,
-    validationSchema: RegisterValidationSchema,
+    initialValues: initialValues,
+    validationSchema: validationSchema,
     onSubmit: onSubmit,
   });
 
