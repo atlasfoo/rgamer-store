@@ -2,18 +2,20 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { initalValues, validationSchema } from "./LoginFormValues";
+import * as Yup from 'yup';
 
 import * as UserApi from "../../../../api/user";
 import { toast } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth";
 
 export default function LoginForm({ showRegisterForm, onCloseModal }) {
+  
   const onSubmit = async (data) => {
     setLoading(true);
     const response = await UserApi.login(data);
     console.log(response);
     if (response?.jwt) {
-      login(response?.jwt)
+      login(response?.jwt);
       onCloseModal();
     } else {
       toast.error("Usuario o contraseña incorrecta");
@@ -21,13 +23,22 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
     setLoading(false);
   };
 
-  const {session, login} = useAuth();
+  const resetPassword = () => {
+    setErrors({});
+    const validateEmail = Yup.string().email(true).required(true);
+    if(!validateEmail.isValidSync(values.identifier)){
+      toast.error("Email inválido");
+      setErrors({identifier: true});
+    } else {
+      UserApi.resetPassword(values.identifier);
+    }
+  }
 
-  console.log(session);
+  const { login } = useAuth();
 
   const [loading, setLoading] = useState(false);
 
-  const { handleChange, handleSubmit, errors } = useFormik({
+  const { handleChange, handleSubmit, errors, setErrors, values } = useFormik({
     initialValues: initalValues,
     validationSchema: validationSchema,
     onSubmit: onSubmit,
@@ -58,7 +69,7 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
           <Button className="submit" type="submit" loading={loading}>
             Entrar
           </Button>
-          <Button type="button">¿Has olvidado la contraseña?</Button>
+          <Button type="button" onClick={resetPassword}>¿Has olvidado la contraseña?</Button>
         </div>
       </div>
     </Form>
