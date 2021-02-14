@@ -1,4 +1,4 @@
-import { BASE_PATH } from "../config/consts";
+import { BASE_PATH } from "../utils/consts";
 
 const create = async (user) => {
   try {

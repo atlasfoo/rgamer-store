@@ -5,13 +5,14 @@ import { initalValues, validationSchema } from "./LoginFormValues";
 
 import * as UserApi from "../../../../api/user";
 import { toast } from "react-toastify";
+import useAuth from "../../../../hooks/useAuth";
 
 export default function LoginForm({ showRegisterForm, onCloseModal }) {
   const onSubmit = async (data) => {
     setLoading(true);
     const response = await UserApi.login(data);
     console.log(response);
-    if(response?.jwt){
+    if (response?.jwt) {
       console.log("Si");
       onCloseModal();
     } else {
@@ -19,6 +20,8 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
     }
     setLoading(false);
   };
+
+  const auth = useAuth();
 
   const [loading, setLoading] = useState(false);
 
