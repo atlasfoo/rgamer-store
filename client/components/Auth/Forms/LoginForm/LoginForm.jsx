@@ -13,7 +13,7 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
     const response = await UserApi.login(data);
     console.log(response);
     if (response?.jwt) {
-      console.log("Si");
+      login(response?.jwt)
       onCloseModal();
     } else {
       toast.error("Usuario o contraseña incorrecta");
@@ -21,7 +21,9 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
     setLoading(false);
   };
 
-  const auth = useAuth();
+  const {session, login} = useAuth();
+
+  console.log(session);
 
   const [loading, setLoading] = useState(false);
 
