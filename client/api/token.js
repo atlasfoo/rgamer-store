@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { TOKEN } from "../utils/consts";
 
 export function setToken(token){
@@ -10,4 +11,12 @@ export function getToken(){
 
 export function removeToken(){
   return localStorage.removeItem(TOKEN);
+}
+
+export function hasExpiredToken(token) {
+  const tokenDecoded = jwtDecode(token);
+  const expireDate = tokenDecoded?.exp * 1000;
+  const currentDate = new Date().getTime();
+
+  return (currentDate>expireDate);
 }

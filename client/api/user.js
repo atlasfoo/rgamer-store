@@ -1,4 +1,5 @@
 import { BASE_PATH } from "../utils/consts";
+import { authFetch } from "../utils/fetch";
 
 const create = async (user) => {
   try {
@@ -68,4 +69,14 @@ const resetPassword = async (email) => {
   }
 }
 
-export { create, login, resetPassword };
+const getMe = async (logout) => {
+  try{
+    const url = `${BASE_PATH}/users/me`;
+    const result = await authFetch(url, null, logout);
+    return result ? result : null;
+  }catch(error){
+    return null;
+  }
+}
+
+export { create, login, resetPassword, getMe };

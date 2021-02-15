@@ -1,15 +1,24 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Grid, Icon, Menu } from "semantic-ui-react";
 import useAuth from "../../../hooks/useAuth";
 import Auth from "../../Auth";
 import BasicModal from "../../Modal/BasicModal";
+import { getMe } from "../../../api/user";
 
 export default function NavMenu() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesión");
+  const [user, setUser] = useState({});
 
   const { session, logout } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const response = await getMe(logout);
+      setUser(response);
+    })();
+  }, []);
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
