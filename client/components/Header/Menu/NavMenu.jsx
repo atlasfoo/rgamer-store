@@ -1,12 +1,15 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { Container, Grid, Icon, Menu } from "semantic-ui-react";
+import { Button, Container, Grid, Icon, Menu } from "semantic-ui-react";
+import useAuth from "../../../hooks/useAuth";
 import Auth from "../../Auth";
 import BasicModal from "../../Modal/BasicModal";
 
 export default function NavMenu() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesión");
+
+  const { session, logout } = useAuth();
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
@@ -19,7 +22,11 @@ export default function NavMenu() {
             <MenuPlatforms />
           </Grid.Column>
           <Grid.Column className="menu__right" width={10}>
-            <MenuOptions onShowModal={onShowModal} />
+            {session ? (
+              <Button onClick={logout}>Cerrar sesi&oacute;n</Button>
+            ) : (
+              <MenuOptions onShowModal={onShowModal} />
+            )}
           </Grid.Column>
         </Grid>
       </Container>

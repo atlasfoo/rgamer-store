@@ -48,7 +48,7 @@ const login = async (data) => {
 
 const resetPassword = async (email) => {
   try {
-    const url = `${BASE_PATH}/auth/forgot-password`;
+    const url = `${BASE_PATH}/auth/reset-password`;
 
     const params = {
       method: "POST",
