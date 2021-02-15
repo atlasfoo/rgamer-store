@@ -9,7 +9,7 @@ import { getMe } from "../../../api/user";
 export default function NavMenu() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesión");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
 
   const { session, logout } = useAuth();
 
@@ -18,7 +18,7 @@ export default function NavMenu() {
       const response = await getMe(logout);
       setUser(response);
     })();
-  }, []);
+  }, [session]);
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
@@ -31,10 +31,12 @@ export default function NavMenu() {
             <MenuPlatforms />
           </Grid.Column>
           <Grid.Column className="menu__right" width={10}>
-            {session ? (
-              <Button onClick={logout}>Cerrar sesi&oacute;n</Button>
-            ) : (
-              <MenuOptions onShowModal={onShowModal} />
+            {user !== undefined && (
+              <MenuOptions
+                onShowModal={onShowModal}
+                user={user}
+                logout={logout}
+              />
             )}
           </Grid.Column>
         </Grid>
@@ -67,12 +69,43 @@ function MenuPlatforms() {
   );
 }
 
-function MenuOptions({ onShowModal }) {
+function MenuOptions({ onShowModal, user, logout }) {
   return (
     <Menu>
-      <Menu.Item onClick={onShowModal}>
-        <Icon name="user outline" /> Mi cuenta
-      </Menu.Item>
+      {user ? (
+        <>
+          <Link href="/orders">
+            <Menu.Item as="a">
+              <Icon name="game" />
+              Mis pedidos
+            </Menu.Item>
+          </Link>
+          <Link href="/wishlist">
+            <Menu.Item as="a">
+              <Icon name='heart outline' />
+              Lista de deseos
+            </Menu.Item>
+          </Link>
+          <Link href="/account">
+            <Menu.Item as="a">
+              <Icon name='user outline' />
+              {user?.name} {user?.lastname}
+            </Menu.Item>
+          </Link>
+          <Link href="/cart">
+            <Menu.Item as="a" className='m-0'>
+              <Icon name='cart arrow down' />
+            </Menu.Item>
+          </Link>
+          <Menu.Item onClick={logout}>
+            <Icon name='power off' /> 
+          </Menu.Item>
+        </>
+      ) : (
+        <Menu.Item onClick={onShowModal} className='m-0'>
+          <Icon name="user outline" /> Mi cuenta
+        </Menu.Item>
+      )}
     </Menu>
   );
 }
