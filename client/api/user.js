@@ -79,4 +79,25 @@ const getMe = async (logout) => {
   }
 }
 
-export { create, login, resetPassword, getMe };
+const updateNames = async (userId, data, logout) => {
+  try {
+    const url = `${BASE_PATH}/users/${userId}`;
+    const params = {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    }
+
+    const result = await authFetch(url, params, logout);
+
+    return result ? result : null;
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export { create, login, resetPassword, getMe, updateNames };

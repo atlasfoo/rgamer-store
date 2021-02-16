@@ -26,17 +26,17 @@ const Account = () => {
 
   return (
     <BasicLayout className="account">
-      <Configuration user={user}/>
+      <Configuration user={user} logout={logout} />
     </BasicLayout>
   );
 };
 
-const Configuration = ({user}) => {
+const Configuration = ({user, logout}) => {
   return (
     <section className="account__configuration">
       <div className="title">Configuraci&oacute;n</div>
       <div className="data">
-        <ChangeNameForm user={user}/>
+        <ChangeNameForm user={user} logout={logout} />
       </div>
     </section>
   );
