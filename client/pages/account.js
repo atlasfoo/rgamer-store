@@ -26,7 +26,7 @@ const Account = () => {
 
   return (
     <BasicLayout className="account">
-      <Configuration />
+      <Configuration user={user}/>
     </BasicLayout>
   );
 };
