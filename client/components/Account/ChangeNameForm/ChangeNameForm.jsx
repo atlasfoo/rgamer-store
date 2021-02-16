@@ -1,22 +1,22 @@
 import { useFormik } from "formik";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 
 import { initalValues, validationSchema } from "./ChangeNameFormValues";
-import * as userApi  from '../../../api/user'
+import * as userApi from "../../../api/user";
 import { toast } from "react-toastify";
 
-const ChangeNameForm = ({ user, logout }) => {
-
+const ChangeNameForm = ({ user, logout, setReloadUser }) => {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(data) {
     setLoading(true);
     const response = await userApi.updateNames(user.id, data, logout);
-    if(!response){
+    if (!response) {
       toast.error("Error al actualizar nombre y apellidos");
-    } else{
-      toast.info("¡Nombre actualizado!")
+    } else {
+      setReloadUser(true);
+      toast.success("¡Nombre actualizado!");
     }
     setLoading(false);
   }
@@ -47,7 +47,9 @@ const ChangeNameForm = ({ user, logout }) => {
             error={errors.lastname}
           />
         </Form.Group>
-        <Button className="submit" loading={loading}>Actualizar</Button>
+        <Button className="submit" loading={loading}>
+          Actualizar
+        </Button>
       </Form>
     </div>
   );

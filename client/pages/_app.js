@@ -6,14 +6,14 @@ import AuthContext from "../context/AuthContext";
 import { useMemo, useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { setToken, getToken, removeToken } from "../api/token";
-import {useRouter} from 'next/router';
+import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
-  const [reloadUser, setReloadUser] = useState(false)
+  const [reloadUser, setReloadUser] = useState(false);
   const router = useRouter();
 
-
+  // recarga al usuario en cada cambio del mismo (llamado mediante reload)
   useEffect(() => {
     const token = getToken();
     if (token) {
@@ -36,12 +36,12 @@ export default function MyApp({ Component, pageProps }) {
   };
 
   const logout = (token) => {
-    if(auth) {
+    if (auth) {
       removeToken();
       setAuth(null);
       router.push("/");
     }
-  } 
+  };
 
   const authData = useMemo(
     () => ({
