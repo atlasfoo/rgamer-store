@@ -1,1 +1,0 @@
-{"ast":null,"code":"export var BASE_PATH = env('REACT_APP_API_URL');","map":{"version":3,"sources":["/media/Data/Repos/rgamer-store/client/config/consts.js"],"names":["BASE_PATH","env"],"mappings":"AAAA,OAAO,IAAMA,SAAS,GAAGC,GAAG,CAAC,mBAAD,CAArB","sourcesContent":["export const BASE_PATH = env('REACT_APP_API_URL');"]},"metadata":{},"sourceType":"module"}

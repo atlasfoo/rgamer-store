@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { default } from './NavMenu';","map":{"version":3,"sources":["/media/Data/Repos/rgamer-store/components/Header/Menu/index.js"],"names":["default"],"mappings":"AAAA,SAAQA,OAAR,QAAsB,WAAtB","sourcesContent":["export {default} from './NavMenu';"]},"metadata":{},"sourceType":"module"}

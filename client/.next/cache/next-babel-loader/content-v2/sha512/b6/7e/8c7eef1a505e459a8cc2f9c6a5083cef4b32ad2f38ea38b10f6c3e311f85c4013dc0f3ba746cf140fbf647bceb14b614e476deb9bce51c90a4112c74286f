@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { default } from './RegisterForm';","map":{"version":3,"sources":["/media/Data/Repos/rgamer-store/client/components/Auth/Forms/RegisterForm/index.js"],"names":["default"],"mappings":"AAAA,SAAQA,OAAR,QAAsB,gBAAtB","sourcesContent":["export {default} from './RegisterForm'"]},"metadata":{},"sourceType":"module"}
