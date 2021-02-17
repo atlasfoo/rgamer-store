@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 import * as UserApi from "../api/user";
 import useAuth from "../hooks/useAuth";
-import { ChangeNameForm, ChangeEmailForm } from "../components/Account";
+import { ChangeNameForm, ChangeEmailForm, ChangePasswordForm } from "../components/Account";
 
 const Account = () => {
   const [user, setUser] = useState(undefined);
@@ -46,6 +46,11 @@ const Configuration = ({ user, logout, setReloadUser }) => {
           setReloadUser={setReloadUser}
         />
         <ChangeEmailForm
+          user={user}
+          logout={logout}
+          setReloadUser={setReloadUser}
+        />
+        <ChangePasswordForm
           user={user}
           logout={logout}
           setReloadUser={setReloadUser}
