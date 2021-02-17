@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
+import { toast } from "react-toastify";
 
 import { initalValues, validationSchema } from "./ChangeNameFormValues";
 import * as userApi from "../../../api/user";
-import { toast } from "react-toastify";
 
 const ChangeNameForm = ({ user, logout, setReloadUser }) => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ const ChangeNameForm = ({ user, logout, setReloadUser }) => {
             error={errors.lastname}
           />
         </Form.Group>
-        <Button className="submit" loading={loading}>
+        <Button className="submit" type='submit' loading={loading}>
           Actualizar
         </Button>
       </Form>
