@@ -53,7 +53,6 @@ const Configuration = ({ user, logout, setReloadUser }) => {
         <ChangePasswordForm
           user={user}
           logout={logout}
-          setReloadUser={setReloadUser}
         />
       </div>
     </section>

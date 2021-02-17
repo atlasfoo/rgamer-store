@@ -121,4 +121,25 @@ const updateEmail = async (userId, email, logout) => {
   }
 }
 
-export { create, login, resetPassword, getMe, updateNames, updateEmail };
+const updatePassword = async (userId, password, logout) => {
+  try {
+    const url = `${BASE_PATH}/users/${userId}`;
+    const params = {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({password})
+    }
+
+    const result = await authFetch(url, params, logout);
+
+    return result ? result : null;
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export { create, login, resetPassword, getMe, updateNames, updateEmail, updatePassword };

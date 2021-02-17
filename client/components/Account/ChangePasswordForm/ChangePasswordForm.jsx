@@ -6,23 +6,20 @@ import { toast } from "react-toastify";
 import { initalValues, validationSchema } from "./ChangePasswordFormValues";
 import * as userApi from "../../../api/user";
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ user, logout }) => {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(data) {
     setLoading(true);
-    console.log(data);
-    /* console.log(data);
-    const response = await userApi.updateEmail(user.id, data.email, logout);
+    const response = await userApi.updatePassword(user.id, data.password, logout);
     if (!response) {
       toast.error("Error al actualizar contraseña");
     } else if (response?.statusCode == 400) {
       toast.error("Error al actualizar contraseña");
     } else {
-      setReloadUser(true);
       toast.success("Contraseña actualizada!");
-      handleReset();
-    } */
+      logout();
+    }
     setLoading(false);
   }
 
