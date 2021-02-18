@@ -4,6 +4,8 @@ import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 import * as UserApi from "../api/user";
 import useAuth from "../hooks/useAuth";
 import { ChangeNameForm, ChangeEmailForm, ChangePasswordForm } from "../components/Account";
+import { Icon } from "semantic-ui-react";
+import BasicModal from "../components/Modal/BasicModal";
 
 const Account = () => {
   const [user, setUser] = useState(undefined);
@@ -37,6 +39,7 @@ const Account = () => {
 
 const Configuration = ({ user, logout, setReloadUser }) => {
   return (
+    <>
     <section className="account__configuration">
       <div className="title">Configuraci&oacute;n</div>
       <div className="data">
@@ -56,7 +59,36 @@ const Configuration = ({ user, logout, setReloadUser }) => {
         />
       </div>
     </section>
+    <Addresses/>
+    </>
   );
 };
 
 export default Account;
+
+function Addresses(){
+  const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState('');
+  const [formModal, setFormModal] = useState(null);
+
+  const openModal = (title) => {
+    setTitleModal(title);
+    setShowModal(true);
+    setFormModal(<h1>Nueva direccion</h1>)
+  }
+
+  return (
+    <section className='account__addresses'>
+      <div className='title'>
+        Direcciones
+        <Icon name='plus' link onClick={()=>openModal('Nueva direccion')}/>
+      </div>
+      <div className='data'>
+        ...direcciones
+      </div>
+      <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
+        {formModal}
+      </BasicModal>
+    </section>
+  )
+}
