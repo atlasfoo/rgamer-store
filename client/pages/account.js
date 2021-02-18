@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 import * as UserApi from "../api/user";
 import useAuth from "../hooks/useAuth";
-import { ChangeNameForm, ChangeEmailForm, ChangePasswordForm } from "../components/Account";
+import { ChangeNameForm, ChangeEmailForm, ChangePasswordForm, AddressForm } from "../components/Account";
 import { Icon } from "semantic-ui-react";
 import BasicModal from "../components/Modal/BasicModal";
 
@@ -74,7 +74,7 @@ function Addresses(){
   const openModal = (title) => {
     setTitleModal(title);
     setShowModal(true);
-    setFormModal(<h1>Nueva direccion</h1>)
+    setFormModal(<AddressForm/>)
   }
 
   return (
