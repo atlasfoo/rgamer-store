@@ -21,7 +21,7 @@ const AddressForm = ({ setShowModal }) => {
   const createAddress = async (data) => {
     const formDataTemp = {
       ...data,
-      user: session.userId,
+      user: session.user_id,
     };
     const response = await addressService.create(formDataTemp, logout);
 
