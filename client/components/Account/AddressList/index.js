@@ -1,1 +1,1 @@
-import {  } from "";
+export { default } from "./AddressList";

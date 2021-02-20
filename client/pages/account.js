@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { ChangeNameForm, ChangeEmailForm, ChangePasswordForm, AddressForm } from "../components/Account";
 import { Icon } from "semantic-ui-react";
 import BasicModal from "../components/Modal/BasicModal";
+import AddressList from "../components/Account/AddressList";
 
 const Account = () => {
   const [user, setUser] = useState(undefined);
@@ -84,7 +85,7 @@ function Addresses(){
         <Icon name='plus' link onClick={()=>openModal('Nueva direccion')}/>
       </div>
       <div className='data'>
-        ...direcciones
+        <AddressList/>
       </div>
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {formModal}
