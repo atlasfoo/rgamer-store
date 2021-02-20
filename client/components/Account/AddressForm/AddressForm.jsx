@@ -1,18 +1,42 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
-import { initialValues, validationSchema } from "./AddressFormValues";
 
-const AddressForm = () => {
+import useAuth from "../../../hooks/useAuth";
+import { initialValues, validationSchema } from "./AddressFormValues";
+import * as addressService from "../../../api/address";
+import { toast } from "react-toastify";
+
+const AddressForm = ({ setShowModal }) => {
+  const [loading, setLoading] = useState(false);
+
+  const { session, logout } = useAuth();
 
   const onSubmit = (data) => {
-    console.log(data);
-  }
+    setLoading(true);
+    createAddress(data);
+    setLoading(false);
+  };
 
-  const { handleChange, handleSubmit, errors } = useFormik({
+  const createAddress = async (data) => {
+    const formDataTemp = {
+      ...data,
+      user: session.userId,
+    };
+    const response = await addressService.create(formDataTemp, logout);
+
+    if (!response) {
+      toast.warning("Error al crear la dirección");
+    }else{
+      resetForm();
+      setShowModal(false);
+    }
+  };
+
+  const { handleChange, handleSubmit, errors, resetForm } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: onSubmit
+    onSubmit: onSubmit,
   });
 
   return (
@@ -80,7 +104,7 @@ const AddressForm = () => {
         />
       </Form.Group>
       <div className="actions">
-        <Button className="submit" type="submit">
+        <Button className="submit" type="submit" loading={loading}>
           Crear direcci&oacute;n
         </Button>
       </div>
