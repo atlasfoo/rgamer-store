@@ -1,5 +1,23 @@
 @import './index.scss';
 
-body{
-    background-color: gray;
+.ui.form{
+  .ui.input{
+    input {
+      border: 1px solid $border-gray-light;
+      font-size: 16px;
+    }
+  }
+
+  .actions{
+    display: flex;
+    align-self: center;
+    justify-content: flex-end;
+    
+  }
+
+  .ui.button.submit{
+    background-color: $primary;
+    color: #fff;
+    margin: 0;
+  }
 }
