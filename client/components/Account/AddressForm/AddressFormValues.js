@@ -1,14 +1,14 @@
 import * as Yup from 'yup';
 
-export const initialValues = () => {
+export const initialValues = (address) => {
   return {
-    title: '',
-    name: '',
-    city: '',
-    address: '',
-    postalCode: '',
-    phone: '',
-    state: '',
+    title: address?.title || '',
+    name: address?.name ||'',
+    city: address?.city ||'',
+    address: address?.address || '',
+    postalCode: address?.postalCode || '',
+    phone: address?.phone || '',
+    state: address?.state || '',
   }
 }
 

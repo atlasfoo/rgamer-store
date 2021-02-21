@@ -48,3 +48,22 @@ export const deleteAddress = async (addressId, logout) => {
     return null;
   }
 }
+
+export const update = async (addressId, data, logout) => {
+  try {
+    const url = `${BASE_PATH}/addresses/${addressId}`;
+    const params = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    }
+    const result = await authFetch(url, params, logout);
+    if(result.statusCode === 500) throw 'Error del servidor';
+    return result;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}

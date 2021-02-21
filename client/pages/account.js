@@ -12,6 +12,7 @@ import {
 import { Icon } from "semantic-ui-react";
 import BasicModal from "../components/Modal/BasicModal";
 import AddressList from "../components/Account/AddressList";
+import { FORM_ACTIONS } from "../utils/consts";
 
 const Account = () => {
   const [user, setUser] = useState(undefined);
@@ -76,10 +77,18 @@ function Addresses() {
   const [formModal, setFormModal] = useState(null);
   const [reloadAddress, setReloadAddress] = useState(false);
 
-  const openModal = (title) => {
+  const openModal = (title, address) => {
     setTitleModal(title);
     setShowModal(true);
-    setFormModal(<AddressForm setShowModal={setShowModal} setReloadAddress={setReloadAddress} />);
+    console.log(address);
+    setFormModal(
+      <AddressForm
+        setShowModal={setShowModal}
+        setReloadAddress={setReloadAddress}
+        action={address ? FORM_ACTIONS.UPDATE : FORM_ACTIONS.CREATE}
+        address={address || null}
+      />
+    );
   };
 
   return (
@@ -89,7 +98,11 @@ function Addresses() {
         <Icon name="plus" link onClick={() => openModal("Nueva direccion")} />
       </div>
       <div className="data">
-        <AddressList reloadAddress={reloadAddress} setReloadAddress={setReloadAddress} />
+        <AddressList
+          reloadAddress={reloadAddress}
+          setReloadAddress={setReloadAddress}
+          openModal={openModal}
+        />
       </div>
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {formModal}

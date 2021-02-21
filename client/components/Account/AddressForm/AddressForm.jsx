@@ -6,15 +6,27 @@ import useAuth from "../../../hooks/useAuth";
 import { initialValues, validationSchema } from "./AddressFormValues";
 import * as addressService from "../../../api/address";
 import { toast } from "react-toastify";
+import { FORM_ACTIONS } from "../../../utils/consts";
 
-const AddressForm = ({ setShowModal, setReloadAddress }) => {
+const AddressForm = ({ setShowModal, setReloadAddress, action, address}) => {
   const [loading, setLoading] = useState(false);
 
   const { session, logout } = useAuth();
 
   const onSubmit = (data) => {
     setLoading(true);
-    createAddress(data);
+    switch(action){
+      case FORM_ACTIONS.CREATE:{
+        createAddress(data);
+        break;
+      }
+      case FORM_ACTIONS.UPDATE:{
+        updateAddress(data);
+        break;
+      }
+      default:
+        break;
+    }
     setLoading(false);
   };
 
@@ -34,8 +46,26 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
     }
   };
 
-  const { handleChange, handleSubmit, errors, resetForm } = useFormik({
-    initialValues: initialValues,
+  const updateAddress = async (data) => {
+    const formDataTemp = {
+      id: address._id,
+      ...data,
+      user: session.user_id,
+    };
+    const response = await addressService.update(formDataTemp.id, formDataTemp, logout);
+
+    if (!response) {
+      toast.warning("Error al actualizar la dirección");
+    }else{
+      toast.success("Se ha actualizado la dirección");
+      resetForm();
+      setReloadAddress(true);
+      setShowModal(false);
+    }
+  }
+
+  const { handleChange, handleSubmit, errors, resetForm, values } = useFormik({
+    initialValues: initialValues(address),
     validationSchema: validationSchema,
     onSubmit: onSubmit,
   });
@@ -48,6 +78,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
         label="Título de la dirección"
         placeholder="Título de la dirección"
         onChange={handleChange}
+        value={values.title}
         error={errors.title}
       />
       <Form.Group widths="equal">
@@ -57,6 +88,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="Nombre y apellidos"
           placeholder="Nombre y apellidos"
           onChange={handleChange}
+          value={values.name}
           error={errors.name}
         />
         <Form.Input
@@ -65,6 +97,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="Dirección"
           placeholder="Dirección"
           onChange={handleChange}
+          value={values.address}
           error={errors.address}
         />
       </Form.Group>
@@ -75,6 +108,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="Ciudad"
           placeholder="Ciudad"
           onChange={handleChange}
+          value={values.city}
           error={errors.city}
         />
         <Form.Input
@@ -83,6 +117,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="Estado/Provincia"
           placeholder="Estado/Provincia"
           onChange={handleChange}
+          value={values.state}
           error={errors.state}
         />
       </Form.Group>
@@ -93,6 +128,7 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="C&oacute;digo Postal"
           placeholder="C&oacute;digo Postal"
           onChange={handleChange}
+          value={values.postalCode}
           error={errors.postalCode}
         />
         <Form.Input
@@ -101,12 +137,13 @@ const AddressForm = ({ setShowModal, setReloadAddress }) => {
           label="N&uacute;mero de tel&eacute;fono"
           placeholder="N&uacute;mero de t&eacute;lefono"
           onChange={handleChange}
+          value={values.phone}
           error={errors.phone}
         />
       </Form.Group>
       <div className="actions">
         <Button className="submit" type="submit" loading={loading}>
-          Crear direcci&oacute;n
+          {(action === FORM_ACTIONS.CREATE)? 'Crear' : 'Actualizar'} direcci&oacute;n
         </Button>
       </div>
     </Form>

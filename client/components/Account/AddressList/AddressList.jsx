@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import * as addressService from "../../../api/address";
 import _ from "lodash";
-import { Button, Grid } from "semantic-ui-react";
+import { Button, Grid, Icon } from "semantic-ui-react";
 
-const AddressList = ({reloadAddress, setReloadAddress}) => {
+const AddressList = ({reloadAddress, setReloadAddress, openModal}) => {
   const [addresses, setAddresses] = useState(null);
 
   const { session, logout } = useAuth();
@@ -25,7 +25,7 @@ const AddressList = ({reloadAddress, setReloadAddress}) => {
         <Grid>
           {_.map(addresses, (address) => (
             <Grid.Column key={address.id} mobile={16} tablet={8} computer={4}>
-              <Address address={address} logout={logout} setReloadAddress={setReloadAddress} />
+              <Address address={address} logout={logout} setReloadAddress={setReloadAddress} openModal={openModal} />
             </Grid.Column>
           ))}
         </Grid>
@@ -34,7 +34,7 @@ const AddressList = ({reloadAddress, setReloadAddress}) => {
   );
 };
 
-function Address({ address, logout, setReloadAddress }) {
+function Address({ address, logout, setReloadAddress, openModal }) {
 
   const [loadingDelete, setLoadingDelete] = useState(false);
 
@@ -53,8 +53,8 @@ function Address({ address, logout, setReloadAddress }) {
       <p>{address.state}, {address.city}, {address.postalCode}</p>
       <p>{address.phone}</p>
       <div className="actions">
-        <Button primary>Editar</Button>
-        <Button onClick={deleteAddress} loading={loadingDelete}>Eliminar</Button>
+        <Button primary onClick={()=>openModal(`Editar ${address.title}`, address)} ><Icon name='edit' /></Button>
+        <Button onClick={deleteAddress} loading={loadingDelete}><Icon name='trash' /></Button>
       </div>
     </div>
   )

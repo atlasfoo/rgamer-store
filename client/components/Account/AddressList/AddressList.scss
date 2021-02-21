@@ -1,17 +1,17 @@
-.list-address{
+.list-address {
   padding: 10px;
 
-  .address{
+  .address {
     padding: 10px;
     margin: 10px 0 10px 0;
     border: 1px solid $border-gray-light;
 
     border-radius: 5px;
 
-    p{
+    p {
       margin-bottom: 5px;
 
-      &:first-of-type{
+      &:first-of-type {
         font-weight: bold;
         border-bottom: 1px solid $border-gray-light;
         margin-bottom: 10px;
@@ -19,14 +19,18 @@
       }
     }
 
-    .actions{
+    .actions {
       margin-top: 20px;
-      .ui.button.primary{
-        background-color: $primary;
-        color: $font-light;
+
+      .ui.button {
+        &.primary {
+          background-color: $primary;
+          color: $font-light;
+        }
+        .icon{
+          margin: 0 !important;
+        }
       }
     }
-
   }
-
 }
