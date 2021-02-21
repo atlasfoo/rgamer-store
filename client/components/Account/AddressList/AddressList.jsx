@@ -4,7 +4,7 @@ import * as addressService from "../../../api/address";
 import _ from "lodash";
 import { Button, Grid } from "semantic-ui-react";
 
-const AddressList = () => {
+const AddressList = ({reloadAddress, setReloadAddress}) => {
   const [addresses, setAddresses] = useState(null);
 
   const { session, logout } = useAuth();
@@ -13,8 +13,9 @@ const AddressList = () => {
     (async () => {
       const response = await addressService.getAll(session.user_id, logout);
       setAddresses(response || []);
+      setReloadAddress(false);
     })();
-  }, [session, logout]);
+  }, [session, logout, reloadAddress]);
 
   return (
     <article className="list-address">

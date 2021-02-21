@@ -74,11 +74,12 @@ function Addresses() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [formModal, setFormModal] = useState(null);
+  const [reloadAddress, setReloadAddress] = useState(false);
 
   const openModal = (title) => {
     setTitleModal(title);
     setShowModal(true);
-    setFormModal(<AddressForm setShowModal={setShowModal} />);
+    setFormModal(<AddressForm setShowModal={setShowModal} setReloadAddress={setReloadAddress} />);
   };
 
   return (
@@ -88,7 +89,7 @@ function Addresses() {
         <Icon name="plus" link onClick={() => openModal("Nueva direccion")} />
       </div>
       <div className="data">
-        <AddressList />
+        <AddressList reloadAddress={reloadAddress} setReloadAddress={setReloadAddress} />
       </div>
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {formModal}

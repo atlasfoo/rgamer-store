@@ -7,7 +7,7 @@ import { initialValues, validationSchema } from "./AddressFormValues";
 import * as addressService from "../../../api/address";
 import { toast } from "react-toastify";
 
-const AddressForm = ({ setShowModal }) => {
+const AddressForm = ({ setShowModal, setReloadAddress }) => {
   const [loading, setLoading] = useState(false);
 
   const { session, logout } = useAuth();
@@ -29,6 +29,7 @@ const AddressForm = ({ setShowModal }) => {
       toast.warning("Error al crear la dirección");
     }else{
       resetForm();
+      setReloadAddress(true);
       setShowModal(false);
     }
   };
