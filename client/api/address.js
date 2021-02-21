@@ -30,3 +30,21 @@ export const getAll =  async (userId, logout) => {
     return null;
   }
 }
+
+export const deleteAddress = async (addressId, logout) => {
+  try {
+    const url = `${BASE_PATH}/addresses/${addressId}`;
+    const params = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+    const result = await authFetch(url, params, logout);
+    if(result.statusCode === 500) throw 'Error del servidor';
+    return result;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
