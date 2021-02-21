@@ -1,0 +1,11 @@
+.login-form{
+  .actions{
+    justify-content: space-between;
+    .ui.basic.button{
+      margin: 0;
+    }
+    .ui.basic.submit{
+      margin-right: 10px !important;
+    }
+  }
+}
