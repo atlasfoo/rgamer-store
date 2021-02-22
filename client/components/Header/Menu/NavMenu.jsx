@@ -27,7 +27,6 @@ export default function NavMenu() {
   useEffect(() => {
     (async () => {
       const response = await platformApi.getAll();
-      console.log(response);
       setPlatforms(response);
     })();
   }, []);
@@ -68,13 +67,13 @@ export default function NavMenu() {
 function MenuPlatforms({ platforms }) {
   return (
     <Menu>
-      {_.map(platforms, (platform) => {
+      {_.map(platforms, (platform) => (
         <Link href={`/games/${platform.url}`} key={platform._id}>
           <Menu.Item as="a" name={platform.url}>
             {platform.title}
           </Menu.Item>
-        </Link>;
-      })}
+        </Link>
+      ))}
     </Menu>
   );
 }
