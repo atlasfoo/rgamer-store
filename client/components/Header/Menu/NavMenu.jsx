@@ -1,12 +1,16 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { Button, Container, Grid, Icon, Menu } from "semantic-ui-react";
+import { Container, Grid, Icon, Menu } from "semantic-ui-react";
 import useAuth from "../../../hooks/useAuth";
 import Auth from "../../Auth";
 import BasicModal from "../../Modal/BasicModal";
+
+import * as platformApi from "../../../api/platform";
 import { getMe } from "../../../api/user";
+import _ from "lodash";
 
 export default function NavMenu() {
+  const [platforms, setPlatforms] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesión");
   const [user, setUser] = useState(undefined);
@@ -20,6 +24,14 @@ export default function NavMenu() {
     })();
   }, [session]);
 
+  useEffect(() => {
+    (async () => {
+      const response = await platformApi.getAll();
+      console.log(response);
+      setPlatforms(response);
+    })();
+  }, []);
+
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
 
@@ -28,7 +40,7 @@ export default function NavMenu() {
       <Container>
         <Grid>
           <Grid.Column className="menu__left" width={6}>
-            <MenuPlatforms />
+            <MenuPlatforms platforms={platforms} />
           </Grid.Column>
           <Grid.Column className="menu__right" width={10}>
             {user !== undefined && (
@@ -53,18 +65,16 @@ export default function NavMenu() {
   );
 }
 
-function MenuPlatforms() {
+function MenuPlatforms({ platforms }) {
   return (
     <Menu>
-      <Link href="/play-station">
-        <Menu.Item as="a">PlayStation</Menu.Item>
-      </Link>
-      <Link href="/xbox">
-        <Menu.Item as="a">Xbox</Menu.Item>
-      </Link>
-      <Link href="/switch">
-        <Menu.Item as="a">Switch</Menu.Item>
-      </Link>
+      {_.map(platforms, (platform) => {
+        <Link href={`/games/${platform.url}`} key={platform._id}>
+          <Menu.Item as="a" name={platform.url}>
+            {platform.title}
+          </Menu.Item>
+        </Link>;
+      })}
     </Menu>
   );
 }
@@ -82,27 +92,27 @@ function MenuOptions({ onShowModal, user, logout }) {
           </Link>
           <Link href="/wishlist">
             <Menu.Item as="a">
-              <Icon name='heart outline' />
+              <Icon name="heart outline" />
               Lista de deseos
             </Menu.Item>
           </Link>
           <Link href="/account">
             <Menu.Item as="a">
-              <Icon name='user outline' />
+              <Icon name="user outline" />
               {user?.name} {user?.lastname}
             </Menu.Item>
           </Link>
           <Link href="/cart">
-            <Menu.Item as="a" className='m-0'>
-              <Icon name='cart arrow down' />
+            <Menu.Item as="a" className="m-0">
+              <Icon name="cart arrow down" />
             </Menu.Item>
           </Link>
           <Menu.Item onClick={logout}>
-            <Icon name='power off' /> 
+            <Icon name="power off" />
           </Menu.Item>
         </>
       ) : (
-        <Menu.Item onClick={onShowModal} className='m-0'>
+        <Menu.Item onClick={onShowModal} className="m-0">
           <Icon name="user outline" /> Mi cuenta
         </Menu.Item>
       )}
