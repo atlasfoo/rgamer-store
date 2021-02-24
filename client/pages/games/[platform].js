@@ -5,6 +5,7 @@ import * as gameApi from "../../api/game";
 import { Loader } from "semantic-ui-react";
 import { parseInt, size } from "lodash";
 import GamesList from "../../components/GamesList/GamesList";
+import Pagination from "../../components/Pagination/Pagination";
 
 const limitPerPage = 5;
 
@@ -16,9 +17,9 @@ const platform = () => {
 
   const getStartItem = () => {
     const currentPages = parseInt(query.page);
-    if(query.page || currentPages === 1 ) return 0;
+    if (!query.page || currentPages === 1) return 0;
     else return currentPages * limitPerPage - limitPerPage;
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -26,7 +27,7 @@ const platform = () => {
         const response = await gameApi.getGamesByPlatform(
           query.platform,
           limitPerPage,
-          0
+          getStartItem()
         );
         setGames(response);
       }
@@ -39,8 +40,8 @@ const platform = () => {
     (async () => {
       const response = await gameApi.getTotalGamesPlatform(query.platform);
       setTotalGames(response);
-    })()
-  }, [query])
+    })();
+  }, [query]);
 
   return (
     <BasicLayout className="platform">
@@ -53,6 +54,14 @@ const platform = () => {
       )}
 
       {size(games) > 0 && <GamesList games={games} />}
+
+      {totalGames && (
+        <Pagination
+          totalGames={totalGames}
+          page={query.page ? parent(query.page) : 1}
+          limitPerPage={limitPerPage}
+        />
+      )}
     </BasicLayout>
   );
 };

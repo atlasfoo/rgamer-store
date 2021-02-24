@@ -8,8 +8,6 @@ import { Breakpoints } from "../../utils/breakpoints";
 const GamesList = ({ games }) => {
   const { width } = useWindowSize();
 
-  console.log(width);
-
   const getColumnsRender = () => {
     switch (true) {
       case width > Breakpoints.lg:
