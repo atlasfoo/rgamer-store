@@ -1,16 +1,15 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react';
+import { GameVideo } from './TabItems';
 
 const Tabs = ({game}) => {
 
-  const {} = game;
+  const {video} = game;
 
   const panes = [
     {
       menuItem: "Información",
-      render: () => <Tab.Pane>
-        <h1>Info Game</h1>
-      </Tab.Pane>
+      render: () => <GameVideo videoUrl= {video}/>
     },
     {
       menuItem: "Lista de Comentarios",

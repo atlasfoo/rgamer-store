@@ -7,6 +7,8 @@ import { useMemo, useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { setToken, getToken, removeToken } from "../api/token";
 import { useRouter } from "next/router";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
