@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import BasicLayout from '../layouts/BasicLayout/BasicLayout'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState } from "react";
+import BasicLayout from "../layouts/BasicLayout/BasicLayout";
+import { useRouter } from "next/router";
 
-import * as gameApi from '../api/game'
+import * as gameApi from "../api/game";
+import { Header } from "../components/GamePage";
+import { Loader } from "semantic-ui-react";
 
 const Game = () => {
-
-  const {query} = useRouter();
+  const { query } = useRouter();
 
   const [game, setGame] = useState(null);
 
@@ -14,14 +15,15 @@ const Game = () => {
     (async () => {
       const response = await gameApi.getGameByUrl(query.game);
       setGame(response[0]);
-    })()
+    })();
   }, [query]);
 
   return (
-    <BasicLayout className='game'>
-      <h1>Estamos en {query.game}</h1>
+    <BasicLayout className="game">
+      {!game && <Loader active>Cargando Juego</Loader>}
+      {game && <Header game={game} />}
     </BasicLayout>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
