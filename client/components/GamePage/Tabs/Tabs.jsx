@@ -1,21 +1,21 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react';
-import { GameVideo } from './TabItems';
+import { GameVideo, ImagesCarousel } from './TabItems';
 
 const Tabs = ({game}) => {
 
-  const {video} = game;
+  console.log(game);
+
+  const {video, snapshots} = game;
 
   const panes = [
     {
-      menuItem: "Información",
+      menuItem: "Trailer Oficial",
       render: () => <GameVideo videoUrl= {video}/>
     },
     {
-      menuItem: "Lista de Comentarios",
-      render: () => <Tab.Pane>
-        <h1>Comentarios Game</h1>
-      </Tab.Pane>
+      menuItem: "Capturas de Pantalla",
+      render: () => <ImagesCarousel title={'xd'} images={snapshots}/>
     },
     {
       menuItem: "Información",
