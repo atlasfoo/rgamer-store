@@ -44,3 +44,14 @@ export const getTotalGamesPlatform = async (platform) => {
     return null;
   }  
 }
+
+export const getGameByUrl = async (path) => {
+  try {
+    const url = `${BASE_PATH}/games/?url=${path}`;
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
