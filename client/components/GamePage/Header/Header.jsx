@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
+import moment from "moment";
+import "moment/locale/es";
 
 const Header = ({ game }) => {
   const { poster, title } = game;
@@ -25,9 +27,7 @@ function InfoGame({ game }) {
         {title}
         <Icon name="heart outline" link />
       </div>
-      <div className="header-game__delivery">
-        Entrega entre 24-48 Horas
-      </div>
+      <div className="header-game__delivery">Entrega entre 24-48 Horas</div>
       <div
         className="header-game__summary"
         dangerouslySetInnerHTML={{ __html: summary }}
@@ -37,10 +37,16 @@ function InfoGame({ game }) {
           <p>Precio de venta al p&uacute;blico: {price}$</p>
           <div className="header-game__buy-price-actions">
             <p>-{discount}%</p>
-            <p>{price-Math.floor(price*discount)/100}$</p>
+            <p>{price - Math.floor(price * discount) / 100}$</p>
           </div>
         </div>
-        <Button className='header-game__buy-btn'><Icon name='cart plus'/> Comprar</Button>
+        <Button className="header-game__buy-btn">
+          <Icon name="cart plus" /> Comprar
+        </Button>
+      </div>
+      <div className="header-game__date">
+        <h4>Fecha de lanzamiento:</h4>
+        <p>{moment(game.releaseDate).format("LL")}</p>
       </div>
     </>
   );
