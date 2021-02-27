@@ -41,8 +41,13 @@ function InfoGame({ game }) {
     }
   };
 
-  const removeFavorite = () => {
-    console.log("remover de favoritos");
+  const removeFavorite = async () => {
+    if(session){
+      await favoritesApi.remove(session.user_id, game.id, logout);
+      setReloadFavorite(true);
+    }else{
+      toast.warning("Debe iniciar sesi\u00f3n para marcar un juego como favorito")
+    }
   };
 
   useEffect(() => {

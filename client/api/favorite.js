@@ -41,3 +41,27 @@ export const add = async (userId, gameId, logout) => {
     return null;
   }
 }
+
+export const remove = async (userId, gameId, logout) => {
+  try {
+
+    const dataFound = await isFavorite(userId, gameId, logout);
+
+    if(!dataFound || size(dataFound) <= 0 ) return null
+
+    const url = `${BASE_PATH}/favorites/${dataFound[0]?._id}`;
+
+    const params = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    return await authFetch(url, params, logout);
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
