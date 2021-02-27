@@ -3,6 +3,7 @@ import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import { size } from "lodash";
 import moment from "moment";
 import classNames from "classnames";
+import {toast} from 'react-toastify'
 import "moment/locale/es";
 
 import * as favoritesApi from "../../../api/favorite";
@@ -29,9 +30,15 @@ function InfoGame({ game }) {
   const { session, logout } = useAuth();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [reloadFavorite, setReloadFavorite] = useState(false)
 
-  const addFavorite = () => {
-    console.log("agregar a favoritos");
+  const addFavorite = async () => {
+    if(session){
+      await favoritesApi.add(session.user_id, game.id, logout);
+      setReloadFavorite(true);
+    }else{
+      toast.warning("Debe iniciar sesi\u00f3n para marcar un juego como favorito")
+    }
   };
 
   const removeFavorite = () => {
@@ -48,7 +55,8 @@ function InfoGame({ game }) {
       if (size(response) > 0) setIsFavorite(true);
       else setIsFavorite(false);
     })();
-  }, []);
+    setReloadFavorite(false)
+  }, [reloadFavorite, game]);
 
   return (
     <>
