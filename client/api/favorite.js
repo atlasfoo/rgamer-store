@@ -65,3 +65,16 @@ export const remove = async (userId, gameId, logout) => {
     return null;
   }
 }
+
+export const getByUser = async (userId, logout) => {
+  try {
+    const url = `${BASE_PATH}/favorites?user=${userId}`
+
+    return await authFetch(url, null, logout);
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+  
+}
