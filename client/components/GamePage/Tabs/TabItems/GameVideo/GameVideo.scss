@@ -1,0 +1,7 @@
+.game-video{
+  overflow: hidden;
+  &__player{
+    width: 100% !important;
+    height: 620px !important;
+  }
+}
