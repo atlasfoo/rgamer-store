@@ -42,7 +42,7 @@ function Search(){
     <Input
       id='search-game'
       icon={{name: "search"}}
-      value={router.query["q"]}
+      value={router.query["q"] || ''}
       onChange={(_, data) => setSearchStr(data.value) }
     />
   )
