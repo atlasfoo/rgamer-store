@@ -1,5 +1,5 @@
-import {BASE_PATH} from '../utils/consts'
-import {authFetch} from '../utils/fetch'
+import { BASE_PATH } from "../utils/consts";
+import { authFetch } from "../utils/fetch";
 
 export const create = async (address, logout) => {
   try {
@@ -10,26 +10,26 @@ export const create = async (address, logout) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(address),
-    }
+    };
     const result = await authFetch(url, params, logout);
-    return result;
-  } catch (error) {
-    console.error(error);
-    return null;    
-  }
-}
-
-export const getAll =  async (userId, logout) => {
-  try {
-    const url = `${BASE_PATH}/addresses?user=${userId}`;
-    const result = await authFetch(url, null, logout);
-    if(result.statusCode === 500) throw 'Error del servidor'
     return result;
   } catch (error) {
     console.error(error);
     return null;
   }
-}
+};
+
+export const getAll = async (userId, logout) => {
+  try {
+    const url = `${BASE_PATH}/addresses?user=${userId}`;
+    const result = await authFetch(url, null, logout);
+    if (result.statusCode === 500) throw "Error del servidor";
+    return result;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 export const deleteAddress = async (addressId, logout) => {
   try {
@@ -39,15 +39,15 @@ export const deleteAddress = async (addressId, logout) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    };
     const result = await authFetch(url, params, logout);
-    if(result.statusCode === 500) throw 'Error del servidor';
+    if (result.statusCode === 500) throw "Error del servidor";
     return result;
   } catch (error) {
     console.error(error);
     return null;
   }
-}
+};
 
 export const update = async (addressId, data, logout) => {
   try {
@@ -57,13 +57,13 @@ export const update = async (addressId, data, logout) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    }
+      body: JSON.stringify(data),
+    };
     const result = await authFetch(url, params, logout);
-    if(result.statusCode === 500) throw 'Error del servidor';
+    if (result.statusCode === 500) throw "Error del servidor";
     return result;
   } catch (error) {
     console.error(error);
     return null;
   }
-}
+};

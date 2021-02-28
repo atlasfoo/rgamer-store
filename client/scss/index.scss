@@ -3,6 +3,11 @@
 @import "../layouts/BasicLayout/BasicLayout.scss";
 //Pages
 @import "../pages/account.scss";
+@import "../pages/wishlist.scss";
+@import "../pages/index.scss";
+@import "../pages/search.scss";
+@import "../pages/games/platform.scss";
+
 
 //Components
 @import "../components/Header/Header.scss";
@@ -15,3 +20,9 @@
 @import "../components/Account/ChangePasswordForm/ChangePasswordForm.scss";
 @import "../components/Account/AddressForm/AddressForm.scss";
 @import "../components/Account/AddressList/AddressList.scss";
+@import "../components/GamesList/GamesList.scss";
+@import "../components/Pagination/Pagination.scss";
+@import "../components/GamePage/Header/Header.scss";
+@import "../components/GamePage/Tabs/Tabs.scss";
+@import "../components/GamePage/Tabs/TabItems/GameVideo/GameVideo.scss";
+@import "../components/GamePage/Tabs/TabItems/ImagesCarousel/ImagesCarousel.scss";
