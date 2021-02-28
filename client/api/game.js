@@ -20,8 +20,8 @@ export const getTotalGameCount = async () => {
   } catch (error) {
     console.error(error);
     return null;
-  }  
-}
+  }
+};
 
 export const getGamesByPlatform = async (platform, limit, start) => {
   try {
@@ -31,8 +31,8 @@ export const getGamesByPlatform = async (platform, limit, start) => {
   } catch (error) {
     console.error(error);
     return null;
-  }  
-}
+  }
+};
 
 export const getTotalGamesPlatform = async (platform) => {
   try {
@@ -42,12 +42,23 @@ export const getTotalGamesPlatform = async (platform) => {
   } catch (error) {
     console.error(error);
     return null;
-  }  
-}
+  }
+};
 
 export const getGameByUrl = async (path) => {
   try {
     const url = `${BASE_PATH}/games/?url=${path}`;
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const searchGamesByTitle = async (title) => {
+  try {
+    const url = `${BASE_PATH}/games?_q=${title}`;
     const response = await fetch(url);
     return await response.json();
   } catch (error) {

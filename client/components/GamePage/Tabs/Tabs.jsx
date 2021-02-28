@@ -3,7 +3,6 @@ import { Tab } from "semantic-ui-react";
 import { GameVideo, ImagesCarousel } from "./TabItems";
 
 const Tabs = ({ game }) => {
-  console.log(game);
 
   const { video, snapshots } = game;
 
