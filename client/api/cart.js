@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { CART } from '../utils/consts';
-import _ from 'lodash'
+import _, { size } from 'lodash'
 
 export const getCartProducts = () => {
   const cart = localStorage.getItem(CART);
@@ -28,4 +28,9 @@ export const addProductToCart = (product) => {
       toast.success("Producto añadido al carrito");
     }
   }
+}
+
+export const countCartProducts = () => {
+  const cart = getCartProducts();
+  return (cart)? size(cart) : 0;
 }

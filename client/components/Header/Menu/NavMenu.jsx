@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { Container, Grid, Icon, Menu } from "semantic-ui-react";
+import { Container, Grid, Icon, Label, Menu } from "semantic-ui-react";
 import useAuth from "../../../hooks/useAuth";
 import Auth from "../../Auth";
 import BasicModal from "../../Modal/BasicModal";
@@ -8,6 +8,7 @@ import BasicModal from "../../Modal/BasicModal";
 import * as platformApi from "../../../api/platform";
 import { getMe } from "../../../api/user";
 import _ from "lodash";
+import useCart from "../../../hooks/useCart";
 
 export default function NavMenu() {
   const [platforms, setPlatforms] = useState(null);
@@ -79,6 +80,7 @@ function MenuPlatforms({ platforms }) {
 }
 
 function MenuOptions({ onShowModal, user, logout }) {
+  const { productsCount } = useCart()
   return (
     <Menu>
       {user ? (
@@ -104,6 +106,7 @@ function MenuOptions({ onShowModal, user, logout }) {
           <Link href="/cart">
             <Menu.Item as="a" className="m-0">
               <Icon name="cart arrow down" />
+              <Label color='red' floating circular>{productsCount}</Label>
             </Menu.Item>
           </Link>
           <Menu.Item onClick={logout}>

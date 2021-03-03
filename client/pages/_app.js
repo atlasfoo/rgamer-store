@@ -12,12 +12,13 @@ import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../scss/global.scss";
 import CartContext from "../context/CartContext";
-import { getCartProducts, addProductToCart } from "../api/cart";
+import { getCartProducts, addProductToCart, countCartProducts } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
   const [totalCartProducts, setTotalCartProducts] = useState(0)
   const [reloadUser, setReloadUser] = useState(false);
+  const [reloadCart, setReloadCart] = useState(false);
   const router = useRouter();
 
   // recarga al usuario en cada cambio del mismo (llamado mediante reload)
@@ -33,6 +34,11 @@ export default function MyApp({ Component, pageProps }) {
     }
     setReloadUser(false);
   }, [reloadUser]);
+
+  useEffect(() => {
+    setTotalCartProducts(countCartProducts());
+    setReloadCart(false);
+  }, [reloadCart, auth])
 
   const login = (token) => {
     setToken(token);
@@ -53,6 +59,7 @@ export default function MyApp({ Component, pageProps }) {
   const addProduct = (product) => {
     if(auth){
       addProductToCart(product);
+      setReloadCart(true);
     } else {
       toast.warning("Por favor inicie sesión para agregar producto al carrito");
     }
@@ -74,7 +81,7 @@ export default function MyApp({ Component, pageProps }) {
     getProducts: getCartProducts,
     removeProduct: () => null,
     removeAllProducts: () => null,
-  }), []);
+  }), [totalCartProducts]);
 
   if (auth === undefined) return null;
 
