@@ -78,7 +78,7 @@ export default function MyApp({ Component, pageProps }) {
   const cartData = useMemo(() => ({
     productsCount: totalCartProducts,
     addProduct: (product) => addProduct(product),
-    getProducts: getCartProducts,
+    getProducts: ()=>getCartProducts(),
     removeProduct: () => null,
     removeAllProducts: () => null,
   }), [totalCartProducts]);
