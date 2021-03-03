@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useMemo, useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../scss/global.scss";
 import CartContext from "../context/CartContext";
-import { getCartProducts } from "../api/cart";
+import { getCartProducts, addProductToCart } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
@@ -41,13 +41,21 @@ export default function MyApp({ Component, pageProps }) {
     });
   };
 
-  const logout = (token) => {
+  const logout = () => {
     if (auth) {
       removeToken();
       setAuth(null);
       router.push("/");
     }
   };
+
+  const addProduct = (product) => {
+    if(auth){
+      addProductToCart(product);
+    } else {
+      toast.warning("Por favor inicie sesión para agregar producto al carrito");
+    }
+  }
 
   const authData = useMemo(
     () => ({
@@ -61,7 +69,7 @@ export default function MyApp({ Component, pageProps }) {
 
   const cartData = useMemo(() => ({
     productsCount: 0,
-    addProduct: () => null,
+    addProduct: (product) => addProduct(product),
     getProducts: getCartProducts,
     removeProduct: () => null,
     removeAllProducts: () => null,

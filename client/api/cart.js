@@ -3,7 +3,7 @@ import { CART } from '../utils/consts';
 import _ from 'lodash'
 
 export const getCartProducts = () => {
-  const cart = localStorage(CART);
+  const cart = localStorage.getItem(CART);
 
   if(!cart){
     return null;
