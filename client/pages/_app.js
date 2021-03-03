@@ -16,6 +16,7 @@ import { getCartProducts, addProductToCart } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
+  const [totalCartProducts, setTotalCartProducts] = useState(0)
   const [reloadUser, setReloadUser] = useState(false);
   const router = useRouter();
 
@@ -68,7 +69,7 @@ export default function MyApp({ Component, pageProps }) {
   );
 
   const cartData = useMemo(() => ({
-    productsCount: 0,
+    productsCount: totalCartProducts,
     addProduct: (product) => addProduct(product),
     getProducts: getCartProducts,
     removeProduct: () => null,
