@@ -4,6 +4,8 @@ import * as gameApi from "../api/game";
 
 import useCart from "../hooks/useCart";
 import CartSummary from "../components/Cart/CartSummary";
+import { size } from "lodash";
+import { Loader } from "semantic-ui-react";
 
 const cart = () => {
   const [products, setProducts] = useState(null);
@@ -44,7 +46,11 @@ function FullCart({ products }) {
 
   return (
     <BasicLayout className="full-cart">
-      <CartSummary products={productsData} />
+      {!productsData || size(productsData) <= 0 ? (
+        <Loader active>Cargando carrito</Loader>
+      ) : (
+        <CartSummary products={productsData} />
+      )}
     </BasicLayout>
   );
 }

@@ -1,8 +1,19 @@
-import { map } from 'lodash'
-import React from 'react'
+import { forEach, map } from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { Icon, Image, Table } from 'semantic-ui-react'
 
 const CartSummary = ({products}) => {
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    let price = 0;
+    forEach(products, (product)=>{
+      price += product.price;
+    });
+    setTotalPrice(price);
+  }, [products])
+
   return (
     <div className='cart-summary'>
       <div className='title'>Resumen del carrito</div>
@@ -32,7 +43,7 @@ const CartSummary = ({products}) => {
             <Table.Row className="cart-summary__resume">
               <Table.Cell className='clear'/>
               <Table.Cell colSpan='2'>Total:</Table.Cell>
-              <Table.Cell className='total-price'>1475$</Table.Cell>
+              <Table.Cell className='total-price'>{(totalPrice).toFixed(2)}$</Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>
