@@ -12,7 +12,7 @@ import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../scss/global.scss";
 import CartContext from "../context/CartContext";
-import { getCartProducts, addProductToCart, countCartProducts } from "../api/cart";
+import { getCartProducts, addProductToCart, countCartProducts, removeProductFromCart } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState({});
@@ -65,6 +65,11 @@ export default function MyApp({ Component, pageProps }) {
     }
   }
 
+  const removeProduct = (product) => {
+    removeProductFromCart(product);
+    setReloadCart(true);
+  }
+
   const authData = useMemo(
     () => ({
       session: auth,
@@ -79,7 +84,7 @@ export default function MyApp({ Component, pageProps }) {
     productsCount: totalCartProducts,
     addProduct: (product) => addProduct(product),
     getProducts: ()=>getCartProducts(),
-    removeProduct: () => null,
+    removeProduct: (product) => removeProduct(product),
     removeAllProducts: () => null,
   }), [totalCartProducts]);
 

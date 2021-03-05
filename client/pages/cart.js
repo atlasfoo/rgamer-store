@@ -9,15 +9,23 @@ import { Loader } from "semantic-ui-react";
 
 const cart = () => {
   const [products, setProducts] = useState(null);
+  const [reloadCart, setReloadCart] = useState(false);
+
   const { getProducts } = useCart();
 
   useEffect(() => {
     setProducts(getProducts());
-  }, []);
+  }, [reloadCart]);
 
   if (!products) return <EmptyCart />;
 
-  return <FullCart products={products} />;
+  return (
+    <FullCart
+      products={products}
+      reloadCart={reloadCart}
+      setReloadCart={setReloadCart}
+    />
+  );
 };
 
 function EmptyCart() {
@@ -28,10 +36,8 @@ function EmptyCart() {
   );
 }
 
-function FullCart({ products }) {
+function FullCart({ products, reloadCart, setReloadCart }) {
   const [productsData, setProductsData] = useState(null);
-
-  console.log(productsData);
 
   useEffect(() => {
     (async () => {
@@ -42,6 +48,7 @@ function FullCart({ products }) {
       }
       setProductsData(productsTemp);
     })();
+    setReloadCart(false);
   }, [products]);
 
   return (
@@ -49,7 +56,11 @@ function FullCart({ products }) {
       {!productsData || size(productsData) <= 0 ? (
         <Loader active>Cargando carrito</Loader>
       ) : (
-        <CartSummary products={productsData} />
+        <CartSummary
+          products={productsData}
+          reloadCart={reloadCart}
+          setReloadCart={setReloadCart}
+        />
       )}
     </BasicLayout>
   );

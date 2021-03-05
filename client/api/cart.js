@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { CART } from '../utils/consts';
-import _, { size } from 'lodash'
+import _, { remove, size } from 'lodash'
 
 export const getCartProducts = () => {
   const cart = localStorage.getItem(CART);
@@ -27,6 +27,20 @@ export const addProductToCart = (product) => {
       localStorage.setItem(CART, cart);
       toast.success("Producto añadido al carrito");
     }
+  }
+}
+
+export const removeProductFromCart = (product) => {
+  const cart = getCartProducts();
+
+  remove(cart, (item) => {
+    return item === product;
+  });
+
+  if(size(cart) > 0) {
+    localStorage.setItem(CART, cart);
+  }else{
+    localStorage.removeItem(CART);
   }
 }
 
