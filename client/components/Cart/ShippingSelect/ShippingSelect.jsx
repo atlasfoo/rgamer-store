@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { map, size } from "lodash";
 import { Grid } from "semantic-ui-react";
+import classNames from "classnames";
 
-const ShippingSelect = () => {
+const ShippingSelect = ({ setShippingAddress }) => {
   const [addresses, setAddresses] = useState(null);
+  const [activeAddress, setActiveAddress] = useState(null);
   const { session, logout } = useAuth();
 
   useEffect(() => {
@@ -33,7 +35,12 @@ const ShippingSelect = () => {
           <Grid>
             {map(addresses, (address) => (
               <Grid.Column key={address.id} mobile={16} tablet={8} computer={4}>
-                <AddressCard address={address}/>
+                <AddressCard
+                  address={address}
+                  activeAddress={activeAddress}
+                  setActiveAddress={setActiveAddress}
+                  setShippingAddress={setShippingAddress}
+                />
               </Grid.Column>
             ))}
           </Grid>
@@ -43,16 +50,33 @@ const ShippingSelect = () => {
   );
 };
 
-function AddressCard({address}){
-  return(
-    <div className="address">
+function AddressCard({
+  address,
+  activeAddress,
+  setActiveAddress,
+  setShippingAddress,
+}) {
+  const changeAddress = () => {
+    setActiveAddress(address._id);
+    setShippingAddress(address);
+  };
+
+  return (
+    <div
+      className={classNames("address", {
+        active: activeAddress === address._id,
+      })}
+      onClick={changeAddress}
+    >
       <p>{address.title}</p>
       <p>{address.name}</p>
       <p>{address.address}</p>
-      <p>{address.city}, {address.state}, {address.postalCode}</p>
+      <p>
+        {address.city}, {address.state}, {address.postalCode}
+      </p>
       <p>{address.phone}</p>
     </div>
-  )
+  );
 }
 
 export default ShippingSelect;
