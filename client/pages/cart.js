@@ -3,9 +3,9 @@ import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 import * as gameApi from "../api/game";
 
 import useCart from "../hooks/useCart";
-import CartSummary from "../components/Cart/CartSummary";
 import { size } from "lodash";
 import { Loader } from "semantic-ui-react";
+import { CartSummary, ShippingSelect } from "../components/Cart";
 
 const cart = () => {
   const [products, setProducts] = useState(null);
@@ -56,11 +56,14 @@ function FullCart({ products, reloadCart, setReloadCart }) {
       {!productsData || size(productsData) <= 0 ? (
         <Loader active>Cargando carrito</Loader>
       ) : (
-        <CartSummary
+        <>
+          <CartSummary
           products={productsData}
           reloadCart={reloadCart}
           setReloadCart={setReloadCart}
-        />
+          />
+          <ShippingSelect/>
+        </>
       )}
     </BasicLayout>
   );
