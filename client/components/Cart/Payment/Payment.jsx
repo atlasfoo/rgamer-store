@@ -1,6 +1,7 @@
 import React from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
+import PaymentForm from './PaymentForm';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
@@ -10,7 +11,7 @@ const Payment = ({products, shippingAddress}) => {
       <div className="title">Pago</div>
       <div className="data">
         <Elements stripe={stripePromise}>
-          <p>Formulario de pago</p>
+          <PaymentForm products={products} address={shippingAddress}/>
         </Elements>
       </div>
     </div>
