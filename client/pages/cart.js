@@ -5,7 +5,7 @@ import * as gameApi from "../api/game";
 import useCart from "../hooks/useCart";
 import { size } from "lodash";
 import { Loader } from "semantic-ui-react";
-import { CartSummary, ShippingSelect } from "../components/Cart";
+import { CartSummary, Payment, ShippingSelect } from "../components/Cart";
 
 const cart = () => {
   const [products, setProducts] = useState(null);
@@ -64,6 +64,7 @@ function FullCart({ products, reloadCart, setReloadCart }) {
           setReloadCart={setReloadCart}
           />
           <ShippingSelect setShippingAddress={setShippingAddress}/>
+          {shippingAddress && <Payment products={productsData} shippingAddress={shippingAddress}/>}
         </>
       )}
     </BasicLayout>
