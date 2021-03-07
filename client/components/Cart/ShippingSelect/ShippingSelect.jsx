@@ -18,8 +18,6 @@ const ShippingSelect = ({ setShippingAddress }) => {
     })();
   }, []);
 
-  console.log(addresses);
-
   return (
     <div className="shipping-select">
       <div className="title">Direcci&oacute;n de env&iacute;o</div>
