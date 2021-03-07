@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import * as gameApi from "../api/game";
 import { Header, Tabs } from "../components/GamePage";
 import { Loader } from "semantic-ui-react";
+import Seo from "../components/Seo";
 
 const Game = () => {
   const { query } = useRouter();
@@ -20,6 +21,7 @@ const Game = () => {
 
   return (
     <BasicLayout className="game">
+      <Seo title={game?.title}/>
       {!game && <Loader active>Cargando Juego</Loader>}
       {game && (
         <>

@@ -6,6 +6,7 @@ import { Loader } from "semantic-ui-react";
 import GamesList from "../components/GamesList/GamesList";
 import { useRouter } from "next/router";
 import Pagination from "../components/Pagination/Pagination";
+import Seo from "../components/Seo";
 
 const limitPerPage = 5;
 
@@ -43,6 +44,7 @@ export default function Home() {
 
   return (
     <BasicLayout className="home">
+      <Seo />
       {!games && <Loader active>Cargando juegos</Loader>}
       {games && size(games) === 0 && (
         <div>

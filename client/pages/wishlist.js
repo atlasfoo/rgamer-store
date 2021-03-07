@@ -18,16 +18,14 @@ const Wishlist = () => {
   useEffect(() => {
     (async () => {
       const response = await favoritesApi.getByUser(session.user_id, logout);
-      
-      if(response && size(response)>0){
+
+      if (response && size(response) > 0) {
         const gamesList = [];
         forEach(response, (data) => {
           gamesList.push(data.game);
-        })
-        console.log(gamesList);
+        });
         setGames(gamesList);
-      }
-      else{
+      } else {
         setGames([]);
       }
     })();
@@ -46,7 +44,7 @@ const Wishlist = () => {
           {!games && <Loader active>Cargando Juegos</Loader>}
 
           {games && size(games) === 0 && (
-            <div className='data__not-found'>
+            <div className="data__not-found">
               <h3>No hay juegos dispoibles</h3>
             </div>
           )}

@@ -8,6 +8,7 @@ import "moment/locale/es";
 
 import * as favoritesApi from "../../../api/favorite";
 import useAuth from "../../../hooks/useAuth";
+import useCart from "../../../hooks/useCart";
 
 const Header = ({ game }) => {
   const { poster, title } = game;
@@ -25,9 +26,10 @@ const Header = ({ game }) => {
 };
 
 function InfoGame({ game }) {
-  const { title, summary, price, discount } = game;
+  const { title, summary, price, discount, url } = game;
 
   const { session, logout } = useAuth();
+  const {addProduct} = useCart();
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [reloadFavorite, setReloadFavorite] = useState(false)
@@ -89,7 +91,7 @@ function InfoGame({ game }) {
             <p>{(price - Math.floor(price * discount) / 100).toFixed(2)}$</p>
           </div>
         </div>
-        <Button className="header-game__buy-btn">
+        <Button className="header-game__buy-btn" onClick={()=>addProduct(url)}>
           <Icon name="cart plus" /> Comprar
         </Button>
       </div>
