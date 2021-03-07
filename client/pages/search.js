@@ -6,6 +6,7 @@ import * as gameApi from "../api/game";
 import { size } from "lodash";
 import { Loader } from "semantic-ui-react";
 import GamesList from "../components/GamesList";
+import Seo from "../components/Seo";
 
 const search = () => {
   const { query } = useRouter();
@@ -32,15 +33,16 @@ const search = () => {
 
   return (
     <BasicLayout className="search">
-    {!games && <Loader active>Buscando Juegos</Loader>}
+      <Seo title={`Buscando: ${query.q}`}/>
+      {!games && <Loader active>Buscando Juegos</Loader>}
 
-    {games && size(games) === 0 && (
-      <div className='data__not-found'>
-        <h3>No hay juegos dispoibles</h3>
-      </div>
-    )}
+      {games && size(games) === 0 && (
+        <div className="data__not-found">
+          <h3>No hay juegos dispoibles</h3>
+        </div>
+      )}
 
-    {size(games) > 0 && <GamesList games={games} />}
+      {size(games) > 0 && <GamesList games={games} />}
     </BasicLayout>
   );
 };

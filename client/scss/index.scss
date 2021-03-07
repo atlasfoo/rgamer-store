@@ -6,6 +6,8 @@
 @import "../pages/wishlist.scss";
 @import "../pages/index.scss";
 @import "../pages/search.scss";
+@import "../pages/cart.scss";
+@import "../pages/orders.scss";
 @import "../pages/games/platform.scss";
 
 
@@ -26,3 +28,10 @@
 @import "../components/GamePage/Tabs/Tabs.scss";
 @import "../components/GamePage/Tabs/TabItems/GameVideo/GameVideo.scss";
 @import "../components/GamePage/Tabs/TabItems/ImagesCarousel/ImagesCarousel.scss";
+@import "../components/Cart/CartSummary/CartSummary.scss";
+@import "../components/Cart/ShippingSelect/ShippingSelect.scss";
+@import "../components/Cart/Payment/Payment.scss";
+@import "../components/Cart/Payment/PaymentForm/PaymentForm.scss";
+@import "../components/Orders/Order/Order.scss";
+
+
