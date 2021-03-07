@@ -2,11 +2,15 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Button } from "semantic-ui-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { paymentCart } from "../../../../api/cart";
+import useAuth from "../../../../hooks/useAuth";
+import { size } from "lodash";
 
 const PaymentForm = ({ products, address }) => {
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const { session, logout } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,6 +26,12 @@ const PaymentForm = ({ products, address }) => {
       toast.error(result.error.message);
     } else {
       console.log(result);
+      const response = await paymentCart(result.token, products, session.user_id, address, logout);
+      if(size(response) > 0) {
+        toast.success("Pedido Completado");
+      }else{
+        toast.error("No se ha podido realizar el pedido");
+      }
     }
 
     setLoading(false);
