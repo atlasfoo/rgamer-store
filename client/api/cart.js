@@ -83,3 +83,7 @@ export const paymentCart = async (token, products, userId, address, logout) => {
     return null;
   }
 }
+
+export const removeAllCartProducts = () => {
+  localStorage.removeItem(CART);
+}

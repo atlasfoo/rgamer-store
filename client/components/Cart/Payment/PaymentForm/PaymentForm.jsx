@@ -5,12 +5,16 @@ import { toast } from "react-toastify";
 import { paymentCart } from "../../../../api/cart";
 import useAuth from "../../../../hooks/useAuth";
 import { size } from "lodash";
+import useCart from "../../../../hooks/useCart";
+import { useRouter } from "next/router";
 
 const PaymentForm = ({ products, address }) => {
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const { session, logout } = useAuth();
+  const { removeAllProducts } = useCart();
+  const router = useRouter()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,10 +29,11 @@ const PaymentForm = ({ products, address }) => {
     if (result.error) {
       toast.error(result.error.message);
     } else {
-      console.log(result);
       const response = await paymentCart(result.token, products, session.user_id, address, logout);
       if(size(response) > 0) {
         toast.success("Pedido Completado");
+        removeAllProducts();
+        router.push("/orders");
       }else{
         toast.error("No se ha podido realizar el pedido");
       }
