@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import { getOrdersByUser } from "../api/order";
 import Order from "../components/Orders/Order";
+import Seo from "../components/Seo";
 import useAuth from "../hooks/useAuth";
 import BasicLayout from "../layouts/BasicLayout/BasicLayout";
 
@@ -13,12 +14,14 @@ const orders = () => {
   useEffect(() => {
     (async () => {
       const response = await getOrdersByUser(session.user_id, logout);
-      setOrders(response || []);
+      if(!response.error)
+        setOrders(response || []);
     })();
   }, [session, logout]);
 
   return (
     <BasicLayout className="orders">
+      <Seo title="RGAMER - Mis pedidos" description="Listado de todos mis pedidos"/>
       <div className="orders__block">
         <div className="title">Pedidos</div>
         <div className="data">
@@ -37,7 +40,7 @@ function OrderList({orders}){
   return(
     <Grid>
       {map(orders, (order) => (
-        <Grid.Column mobile={16} tablet={8} computer={8}>
+        <Grid.Column key={order._id} mobile={16} tablet={8} computer={8}>
           <Order order={order}/>
         </Grid.Column>
       ))}

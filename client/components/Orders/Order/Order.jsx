@@ -6,7 +6,6 @@ import BasicModal from "../../Modal/BasicModal";
 
 const Order = ({ order }) => {
   const { game, totalPayment, createdAt, shippingAddress } = order;
-  const { title, poster, url } = game;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -15,13 +14,13 @@ const Order = ({ order }) => {
       <div className="order">
         <div className="order__info">
           <div className="order__info-data">
-            <Link href={`/${url}`}>
+            <Link href={`/${game?.url}`}>
               <a>
-                <Image src={poster.url} alt={title} />
+                <Image src={game?.poster.url} alt={game?.title} />
               </a>
             </Link>
             <div>
-              <h2>{title}</h2>
+              <h2>{game?.title}</h2>
               <p>{totalPayment} $</p>
             </div>
           </div>
@@ -37,7 +36,7 @@ const Order = ({ order }) => {
       <AddressModal
         showModal={showModal}
         setShowModal={setShowModal}
-        title={title}
+        title={game?.title}
         shippingAddress={shippingAddress}
       />
     </>
